@@ -91,7 +91,7 @@ void process_png_file() {
   putchar(0x00);
 
   //  Print image dimensions
-  unsigned short headerX = width / 8; // width in characters
+  unsigned short headerX = (width + 7) / 8; // width in characters
   unsigned short headerY = height; // height in pixels
 
   putchar((headerX >> 0) & 0xFF);
@@ -124,6 +124,10 @@ void process_png_file() {
         i = 0;
         temp = 0;
       }
+    }
+    if(i != 0) {
+        putchar(temp);
+        i = 0;
     }
   }
 
