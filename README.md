@@ -25,7 +25,8 @@ Note that you'll need `libpng` installed.
 
 ## Copyright
 
-(C) 2015 The Working Group Inc.
+(C) 2015 The Working Group Inc., incorporating modifications by
+Michael Billington < michael.billington@gmail.com >
 
 Using the [MIT License](http://opensource.org/licenses/MIT) as described in
 the [`LICENSE`](LICENSE) file.

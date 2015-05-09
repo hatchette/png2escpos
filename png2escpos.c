@@ -3,7 +3,8 @@
  * A converter to turn PNG files into binary data streams suitable
  * for printing on an Epson Point-Of-Sale thermal printer (ESC/POS format)
  *
- * Copyright (c) 2015 The Working Group, Inc. (peter@twg.ca)
+ * Copyright (c) 2015 The Working Group, Inc. (peter@twg.ca), incorporating
+ * modifications by Michael Billington < michael.billington@gmail.com >
  *
  * png2escpos's main conversion algorithm is inspired by work done by
  * Michael Franzl on his Ruby library, ruby-escper:
@@ -103,8 +104,10 @@ void process_png_file() {
     png_bytep row = row_pointers[y];
     for (int x = 0; x < width; x++) {
       png_bytep px = &(row[x * 4]);
-      int value = px[0];
-      if (value > 128) {
+      int value = px[0] + px[1] + px[2];
+      if (px[3] < 128) {
+        value = 255;
+      } else if (value > 384) {
         value = 255;
       } else {
         value = 0;
