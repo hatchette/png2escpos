@@ -8,11 +8,12 @@ INC=-lpng
 .PHONY: debug clean
 
 ${OUTPUT}: ${SRC}
-	${COMPILER} ${FLAGS} ${INC} -O3 ${SRC} -o ${OUTPUT}
+	${COMPILER} ${FLAGS} -O3 ${SRC} ${INC} -o ${OUTPUT}
 
 debug: clean ${SRC}
-	${COMPILER} ${FLAGS} -ggdb -D DEBUG ${INC} ${SRC} -o ${OUTPUT}
+	${COMPILER} ${FLAGS} -ggdb -D DEBUG ${SRC} ${INC} -o ${OUTPUT}
 
 clean:
 	rm ${OUTPUT}
 	rm -rf ${OUTPUT}.dSYM
+
