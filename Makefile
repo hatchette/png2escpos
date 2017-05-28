@@ -11,9 +11,8 @@ ${OUTPUT}: ${SRC}
 	${COMPILER} ${FLAGS} ${INC} -O3 ${SRC} -o ${OUTPUT}
 
 debug: clean ${SRC}
-	${COMPILER} ${FLAGS} -ggdb -D DEBUG ${SRC} ${INC} -o ${OUTPUT}
+	${COMPILER} ${FLAGS} -ggdb -D DEBUG ${INC} ${SRC} -o ${OUTPUT}
 
 clean:
 	rm ${OUTPUT}
 	rm -rf ${OUTPUT}.dSYM
-
