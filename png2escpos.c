@@ -144,11 +144,12 @@ void process_png_file() {
   putchar(0x56);
   putchar(0x00);
 }
- 
+
 int main(int argc, char *argv[]) {
   if (argc != 2) {
-    printf("png2escpos v0.1 - converts PNGs into Epson ESC/POS format.\n");
-    printf("Copyright (c) 2015 The Working Group, Inc.\n");
+    printf("png2escpos v0.2 - converts PNGs into Epson ESC/POS format.\n");
+    printf("Copyright (c) 2015 The Working Group, Inc., incorporating \n");
+    printf("modifications by Michael Billington\n");
     printf("\n");
     printf("Usage: %s <file.png>\n", argv[0]);
     printf("Binary output in ESC/POS format will be written directly to stdout.\n");

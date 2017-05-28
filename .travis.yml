@@ -1,0 +1,14 @@
+---
+language: c
+
+addons:
+  apt:
+    packages:
+      - libpng-dev
+
+compiler:
+  - gcc
+
+script:
+  - make
+...
