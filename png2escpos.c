@@ -3,7 +3,8 @@
  * A converter to turn PNG files into binary data streams suitable
  * for printing on an Epson Point-Of-Sale thermal printer (ESC/POS format)
  *
- * Copyright (c) 2015 The Working Group, Inc. (peter@twg.ca)
+ * Copyright (c) 2015 The Working Group, Inc. (peter@twg.ca), incorporating
+ * modifications by Michael Billington < michael.billington@gmail.com >
  *
  * png2escpos's main conversion algorithm is inspired by work done by
  * Michael Franzl on his Ruby library, ruby-escper:
@@ -91,7 +92,7 @@ void process_png_file() {
   putchar(0x00);
 
   //  Print image dimensions
-  unsigned short headerX = width / 8; // width in characters
+  unsigned short headerX = (width + 7) / 8; // width in characters
   unsigned short headerY = height; // height in pixels
 
   putchar((headerX >> 0) & 0xFF);
@@ -103,8 +104,10 @@ void process_png_file() {
     png_bytep row = row_pointers[y];
     for (int x = 0; x < width; x++) {
       png_bytep px = &(row[x * 4]);
-      int value = px[0];
-      if (value > 128) {
+      int value = px[0] + px[1] + px[2];
+      if (px[3] < 128) {
+        value = 255;
+      } else if (value > 384) {
         value = 255;
       } else {
         value = 0;
@@ -125,6 +128,10 @@ void process_png_file() {
         temp = 0;
       }
     }
+    if(i != 0) {
+        putchar(temp);
+        i = 0;
+    }
   }
 
   //  Line breaks
@@ -137,11 +144,12 @@ void process_png_file() {
   putchar(0x56);
   putchar(0x00);
 }
- 
+
 int main(int argc, char *argv[]) {
   if (argc != 2) {
-    printf("png2escpos v0.1 - converts PNGs into Epson ESC/POS format.\n");
-    printf("Copyright (c) 2015 The Working Group, Inc.\n");
+    printf("png2escpos v0.2 - converts PNGs into Epson ESC/POS format.\n");
+    printf("Copyright (c) 2015 The Working Group, Inc., incorporating \n");
+    printf("modifications by Michael Billington\n");
     printf("\n");
     printf("Usage: %s <file.png>\n", argv[0]);
     printf("Binary output in ESC/POS format will be written directly to stdout.\n");
