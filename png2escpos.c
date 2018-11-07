@@ -77,7 +77,7 @@ void read_png_file(char *filename) {
   }
  
   png_read_image(png, row_pointers);
- 
+  png_destroy_info_struct(png, &info);
   fclose(fp);
 }
 
