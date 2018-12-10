@@ -138,11 +138,6 @@ void process_png_file() {
   for (int j = 0; j < 4; j++) {
     putchar(0x0a);
   }
-
-  //  "Cut paper" command
-  putchar(0x1d);
-  putchar(0x56);
-  putchar(0x00);
 }
 
 int main(int argc, char *argv[]) {
